@@ -1,11 +1,11 @@
 # For technical reasons, this file is *NOT* reloaded automatically when you use
 # 'bundle exec jekyll serve'. If you change this file, please restart the server process.
 
-title: Bay Jekyll Theme
+title: Haneol-Kijm
 description: >- # this means to ignore newlines until "baseurl:"
   Bay is a minimal Jekyll Theme.
 baseurl: "/bay" # the subpath of the site
-url: "https://eliottvincent.github.io" # the base hostname & protocol for the site
+url: "https://haneol-kijm.github.io" # the base hostname & protocol for the site
 og_image: /assets/img/profile-pic.jpg
 google_analytics: "UA-121636368-3"
 
@@ -21,27 +21,24 @@ footer:
   contact:
     - type: email
       name: Email
-      value: yourmail@domain.com
+      value: haneol.kijm@gmail.com
     - type: wechat
-      value: YourWeChatUsername
+      value: KakaoTalk
       link: "#"
   follow:
     - type: twitter
       name: Twitter
-      link: http://twitter.com/YourTwitterUsername
-      username: "@YourTwitterUsername"
+      link: http://twitter.com/haneol_kijm
+      username: "@haneol_kijm"
     - type: facebook
       name: Facebook
       link: http://facebook.com/YourFacebookUsername
     - type: linkedin
       name: LinkedIn
-      link: http://linkedin.com/in/YourLinkedInUsername
+      link: https://www.linkedin.com/in/%ED%95%9C%EC%96%BC-%EA%B9%80-371102300/
     - type: github
       name: GitHub
-      link: http://github.com/YourGitHubUsername
-    - type: dribbble
-      name: Dribbble
-      link: https://dribbble.com/YourDribbbleUsername
+      link: http://github.com/Haneol-Kijm
     - type: rss
       name: RSS
       link: /feed.xml
