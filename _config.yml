@@ -39,6 +39,9 @@ footer:
     - type: github
       name: GitHub
       link: http://github.com/Haneol-Kijm
+    - type: dribbble
+      name: dribbble
+      link: "#"
     - type: rss
       name: RSS
       link: /feed.xml
