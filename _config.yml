@@ -23,7 +23,7 @@ footer:
       name: Email
       value: haneol.kijm@gmail.com
     - type: wechat
-      value: KakaoTalk
+      value: haneol.kijm
       link: "#"
   follow:
     - type: twitter
