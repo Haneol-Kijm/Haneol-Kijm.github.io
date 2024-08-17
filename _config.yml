@@ -39,6 +39,9 @@ footer:
     - type: github
       name: GitHub
       link: http://github.com/Haneol-Kijm
+    - type: huggingface
+      name: HuggingFace
+      link: https://huggingface.co/HaneolKijm
     - type: rss
       name: RSS
       link: /feed.xml
