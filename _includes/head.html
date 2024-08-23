@@ -29,7 +29,7 @@
     {% assign page_image = site.url + page.og_image %}
   {% endif %}
 
-  {% if page.use_math%}{% include mathjax_support.html %}{% endif %}
+  {% if page.use_math %}{% include mathjax_support.html %}{% endif %}
 
   {% for follow in site.footer.follow %}
     {% if follow.type == 'twitter' %}
