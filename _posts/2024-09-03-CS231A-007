@@ -1,0 +1,76 @@
+---
+title: CS231A Lecture 7 review
+layout: post
+draft: true
+use_math: true
+---
+
+## SFM 문제 복습
+
+### The SFM problem
+
+- m개의 이미지에서 n개의 3차원 고정 포인트를 관측했을 때, $\mathbf{x}_{ij}=\mathbf{M}_i \mathbf{X}_j$
+- 여기서 다음을 추정하라
+    - $m$ projection matrices $\mathbf{M}_i$→motion
+    - $n$ 3d points $\mathbf{X}_j$→structure
+
+## Affine SFM
+
+### Affine SFM
+
+- 더 단순한 상황을 생각해볼 수 있다. 카메라들이 affine하다고 가정하는 것
+- 그냥 perspective model에서는 알 수 있는 것이 없지만, affine 가정에서는 $\mathbf{x}=[\mathbf{m}_1\mathbf{X}, \mathbf{m}_2\mathbf{X}, 1]^\top$ 이므로,
+
+\\(\mathbf{x}^E=(\mathbf{m}_1\mathbf{X}, \mathbf{m}_2\mathbf{X})^\top=\begin{bmatrix}\mathbf{A}&\mathbf{b}\end{bmatrix}\mathbf{X}=\mathbf{A}\mathbf{X}^E+ \mathbf{b}\\)
+
+- 이 때 카메라 $i$와 $j$번째 점에 대해 쓰면, $\mathbf{x}_{ij}=\mathbf{A}_i\mathbf{X}_j+\mathbf{b}_i$이고, 각각 2x1, 2x3, 3x1, 2x1 벡터임에 유의하여야 한다.
+- $m\times n$개의 관측값 $\mathbf{x}_{ij}$에 대해 각 행렬와 3차원 점의 위치를 추정하는 것이 affine SFM의 목적이다.
+- $2m\times n$개 방정식에 $8m+3n-8$개 변수가 들어가있음
+- 접근법
+    - 기하학적 접근(by fundamental matrix): Affine epipolar geometry, F 추정, 카메라, 점
+    - Factorization 방법(by SVD)
+
+### Tomasi&Kanade Algorithm
+
+- Data centering&Factorization 으로 구성되어 있음
+
+#### Data centering
+
+- Data centering: $hat{\mathbf{x}}_{ij}=\mathbf{x}_{ij}-\bar{\mathbf{x}}_i$ where $\bar{\mathbf{x}}=\frac{1}{n} \sum_{k=1}^{n}\mathbf{x}_{ik}$
+- 계산하면 3차원 센터링에 행렬 먹인걸로 바뀜:$hat{\mathbf{x}}_{ij}=\mathbf{A}_i (\mathbf{X}_{j}-\bar{\mathbf{X}})=\mathbf{A}_i \hat{\mathbf{X}_j}$
+- 이미 세계의 중심이 센터라면? $hat{\mathbf{x}}_{ij}=\mathbf{A}_i \mathbf{X}_j$
+- 관계식은 구했으나, 좌변만 현재 계산 가능한 상황.
+
+#### Factorization
+
+- 다음 행렬을 측정 행렬이라고 한다.$\mathbf{D}=[hat{\mathbf{x}}_{ij}]_{1\leq i\leq m, 1\leq j\leq n}$. 이 때 각 원소가 $2\times1$ 벡터라 $2m\times n$ 행렬임에 주의.
+- 이제 아까 구했던 센터링 식으로 행렬을 찢으면,
+
+\\(\mathbf{D}=\begin{bmatrix}\mathbf{A}_1\\\ \mathbf{A}_2\\\ \vdots\\\ \mathbf{A}_m\end{bmatrix}_{2m\times3}\begin{bmatrix}\mathbf{X}_1&\mathbf{X}_2&\cdots\mathbf{X}_n\end{bmatrix}_{3\times n}=\mathbf{M}\mathbf{S}\\)
+
+- 식에 따라서 측정 행렬의 랭크가 3임을 알 수 있다.
+- 측정 행렬을 어떻게 쪼갤 것인가? 랭크가 3이므로 singular value가 3개인 SVD
+- 크기가 3인 SVD를 고려하여 각각 $\mathbf{X}_3, \mathbf{X}_3, \mathbf{X}_3$을 생각하면, $\mathbf{D}=\mathbf{U}_3(\mathbf{W}_3\mathbf{V}_3^\top)=\mathbf{M}\mathbf{S}$
+- 그런데 측정 행렬이 노이즈나 근사치 때매 랭크가 3을 넘어가면 어떢함?→ 정리에 의해 위 분해가 가장 가까운 rank-3 approximation임이 밝혀져있다.(프로베니우스 노름 기준)
+
+### Ambiguity in reconstruction
+
+#### Affine ambiguity
+
+![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/ac84168d-557f-4919-b37f-2632c6456077/f0bd0873-710b-45e7-baba-b95be70097bd/image.png)
+
+- $\mathbf{D}=\mathbf{M}H\cdot H^{-1}\mathbf{S}$ 분해가 유일하지 않아서 추가 조건이 필요함.
+
+#### Similarity ambiguity
+
+![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/ac84168d-557f-4919-b37f-2632c6456077/38e1fc43-4a67-47ac-a1ab-e68127d198e5/image.png)
+
+- 3차원 scene은 up to similarity transformation에 의해 유일함.
+- 카메라가 칼리브레이트되어있으면, 이게 유일한 모호성임.
+- 어찌보면 직관적으로 당연함. 이미지만 가지고 적대적인 크기를 알 수 있음?
+
+## Perspective SFM
+
+## Self-calibration
+
+## Application
