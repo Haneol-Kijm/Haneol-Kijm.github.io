@@ -2,8 +2,8 @@
 title: Masked Autoencoders are Scalable Vision Learners Review
 layout: post
 ---
-![masked autoencoder](https://github.com/user-attachments/assets/fe89a996-b849-41d2-9bca-94472745e4f6)
-<img src="https://github.com/user-attachments/assets/fe89a996-b849-41d2-9bca-94472745e4f6" alt="bay" class="post-pic"/>
+
+<img src="https://github.com/user-attachments/assets/fe89a996-b849-41d2-9bca-94472745e4f6" alt="MAE figure" class="post-pic"/>
 <br />
 <br />
 
