@@ -14,17 +14,16 @@ use_math: true
 - S4는 CNN, RNN, 클래식 상태 공간 모델과 연관있다.
 - S4는 4가지 파라미터 $(\Delta, \mathbf{A}, \mathbf{B}, \mathbf{C})$와 6가지 식으로 두 단계에 걸쳐 정의된다
     - Continuous version: $h’(t) = \mathbf{A}h(t) + \mathbf{B} x(t), y(t)=\mathbf{C}h(t)$
-    - Recurrence after discretization:  $h_t = \bar{\mathbf{A}}h_{t-1} + \mathbf{B} x_t, y_t=\mathbf{C}h_t$
-    - Convolution after discretization: $\bar{\mathbf{K}} = (\mathbf{C}\bar{\mathbf{B}}, \mathbf{C}\bar{\mathbf{A}\mathbf{B}}, \dots, \mathbf{C}\bar{\mathbf{A}}^k\bar{\mathbf{B}}, \dots), y=x\star\hat{\mathbf{K}}$
+        - Recurrence after discretization:  $h_t = \bar{\mathbf{A}}h_{t-1} + \bar{\mathbf{B} x_t, y_t=\mathbf{C}h_t$
+    - Convolution after discretization: $\bar{\mathbf{K}} = (\mathbf{C}\bar{\mathbf{B}}, \mathbf{C}\overline{\mathbf{A}\mathbf{B}}, \dots, \mathbf{C}\bar{\mathbf{A}}^k\bar{\mathbf{B}}, \dots), y=x\ast\hat{\mathbf{K}}$
 
 ### 이산화
 
-- 첫번째 단계 이산화에선 연속 파라미터 $(\Delta, \mathbf{A}, \mathbf{B})$를 이산 변수 $(\bar{\mathbf{A}}, \bar{\mathbf{B}})$로 *이산화 룰* $(f_A, f_B)$를 통해 $\bar{\mathbf{A}}=f_A(\Delta, \mathbf{A}), \bar{\mathbf{B}}=f_B(\Delta, \mathbf{A}, \mathbf{B})$로 보낸다. 대표적인 이산화 룰로는 ZOH(zero-order hold)가 있다.
+- 첫번째 단계 이산화에선 연속 파라미터 $(\Delta, \mathbf{A}, \mathbf{B})$를 이산 변수 $(\bar{\mathbf{A}}, \bar{\mathbf{B}})$로 *이산화 룰* $(f_A, f_B)$를 통해 $\bar{\mathbf{A}}=f_A(\Delta, \mathbf{A}), \bar{\mathbf{B}}=f_B(\Delta, \mathbf{A}, \mathbf{B})$로 보낸다. 대표적인 이산화 룰로는 ZOH(zero-order hold)가 있다.(여기서도 이거 쓸거임)
 
 \\(\bar{\mathbf{A}} = \exp(\Delta \mathbf{A}), \bar{\mathbf{B}} = (\Delta\mathbf{A})^{-1}(\exp(\Delta \mathbf{A})-I)\cdot \Delta \mathbf{B}\\)
 
 - 이산화는 기본적으론 SSM의 포워드 패스 첫단계이다.
-- 그냥 이 스텝 건너뛰고 이산변수부터 하는 모델링도 있다.
 - 이산화는 연속 시스템과 연결성을 만들어줘서, 해상도 불변성을 만들고 normalize를 보장해준다.
 - 이산화는 RNN의 gating mechanism과도 연관 있다. 추후 언급
 
@@ -38,11 +37,11 @@ use_math: true
 $h_t$에 대해 풀어쓰면, 
 
 \\(
-\begin{align*}
-h_0=\bar{\mathbf{B}}x_0\\\ 
-h_1=\bar{\mathbf{A}}h_0+\bar{\mathbf{B}}x_1=\bar{\mathbf{A}}\bar{\mathbf{B}}x_0+\bar{\mathbf{B}}x_1\\\ 
-h_2=\bar{\mathbf{A}}h_1+\bar{\mathbf{B}}x_1=\bar{\mathbf{A}}^2\bar{\mathbf{B}}x_0 +\bar{\mathbf{A}}\bar{\mathbf{B}}x_1+\bar{\mathbf{B}}x_2\\\ 
-h_3=\bar{\mathbf{A}}h_2+\bar{\mathbf{B}}x_3=\bar{\mathbf{A}}^3\bar{\mathbf{B}}x_0 +\bar{\mathbf{A}}^2\bar{\mathbf{B}}x_1+\bar{\mathbf{A}}\bar{\mathbf{B}}x_2+\bar{\mathbf{B}}x_3\\\
+\begin{align*} 
+h\_0=\bar{\mathbf{B}}x\_0\\\ 
+h\_1=\bar{\mathbf{A}}h\_0+\bar{\mathbf{B}}x\_1=\bar{\mathbf{A}}\bar{\mathbf{B}}x\_0+\bar{\mathbf{B}}x\_1\\\ 
+h\_2=\bar{\mathbf{A}}h\_1+\bar{\mathbf{B}}x\_2=\bar{\mathbf{A}}^2\bar{\mathbf{B}}x\_0 +\bar{\mathbf{A}}\bar{\mathbf{B}}x\_1+\bar{\mathbf{B}}x\_2\\\ 
+h\_3=\bar{\mathbf{A}}h\_2+\bar{\mathbf{B}}x\_3=\bar{\mathbf{A}}^3\bar{\mathbf{B}}x\_0 +\bar{\mathbf{A}}^2\bar{\mathbf{B}}x\_1+\bar{\mathbf{A}}\bar{\mathbf{B}}x\_2+\bar{\mathbf{B}}x\_3\\\
 \vdots 
 \end{align*}
 \\)
@@ -50,13 +49,13 @@ h_3=\bar{\mathbf{A}}h_2+\bar{\mathbf{B}}x_3=\bar{\mathbf{A}}^3\bar{\mathbf{B}}x_
 다시 $y_t$에 대해 풀어쓰면, 
 
 \\(
-\begin{align*}
-y_0=\mathbf{C}\bar{\mathbf{B}}x_0\\\ 
-y_1=\mathbf{C}\bar{\mathbf{A}}\bar{\mathbf{B}}x_0+\mathbf{C}\bar{\mathbf{B}}x_1\\\ 
-y_2=\mathbf{C}\bar{\mathbf{A}}^2\bar{\mathbf{B}}x_0 +\mathbf{C}\bar{\mathbf{A}}\bar{\mathbf{B}}x_1+\mathbf{C}\bar{\mathbf{B}}x_2\\\ 
-y_3=\mathbf{C}\bar{\mathbf{A}}^3\bar{\mathbf{B}}x_0 +\mathbf{C}\bar{\mathbf{A}}^2\bar{\mathbf{B}}x_1+\mathbf{C}\bar{\mathbf{A}}\bar{\mathbf{B}}x_2+\mathbf{C}\bar{\mathbf{B}}x_3\\\ 
+\begin{align*} 
+y\_0=\mathbf{C}\bar{\mathbf{B}}x\_0\\\ 
+y\_1=\mathbf{C}\bar{\mathbf{A}}\bar{\mathbf{B}}x\_0+\mathbf{C}\bar{\mathbf{B}}x\_1\\\ 
+y\_2=\mathbf{C}\bar{\mathbf{A}}^2\bar{\mathbf{B}}x\_0 +\mathbf{C}\bar{\mathbf{A}}\bar{\mathbf{B}}x\_1+\mathbf{C}\bar{\mathbf{B}}x\_2\\\ 
+y\_3=\mathbf{C}\bar{\mathbf{A}}^3\bar{\mathbf{B}}x\_0 +\mathbf{C}\bar{\mathbf{A}}^2\bar{\mathbf{B}}x\_1+\mathbf{C}\bar{\mathbf{A}}\bar{\mathbf{B}}x\_2+\mathbf{C}\bar{\mathbf{B}}x\_3\\\ 
 \vdots\\\ 
-y_n=(\mathbf{C}\bar{\mathbf{B}}, \mathbf{C}\bar{\mathbf{A}}\bar{\mathbf{B}}, \dots, \mathbf{C}\bar{\mathbf{A}}^n\bar{\mathbf{B}})\ast(x_0, x_1, \dots, x_n) 
+y\_n=(\mathbf{C}\bar{\mathbf{B}}, \mathbf{C}\bar{\mathbf{A}}\bar{\mathbf{B}}, \dots, \mathbf{C}\bar{\mathbf{A}}^n\bar{\mathbf{B}})\ast(x\_0, x\_1, \dots, x\_n) 
 \end{align*}
 \\)
 
@@ -70,7 +69,7 @@ y_n=(\mathbf{C}\bar{\mathbf{B}}, \mathbf{C}\bar{\mathbf{A}}\bar{\mathbf{B}}, \do
 
 ### Structure and Dimensions
 
-- S4는 행렬 $\mathbf{A}\in\mathbb{R}^{N\timesN}, \mathbf{B}\in\mathbb{R}^{N\times1},\mathbf{C}\in\mathbb{R}^{N\times1}\$에 구조 제약을 건다. 이 논문에서 쓸 제일 유명한 제약은 대각 행렬일 것.
+- S4는 행렬 $\mathbf{A}\in\mathbb{R}^{N\times N}, \mathbf{B}\in\mathbb{R}^{N\times1},\mathbf{C}\in\mathbb{R}^{N\times1}\$에 구조 제약을 건다. 이 논문에서 쓸 제일 유명한 제약은 대각 행렬일 것.
     - 이 경우 각 행렬 $\mathbf{A}, \mathbf{B}, \mathbf{C}$을 $N$개의 숫자로 표현할 수 있다.
 - 인풋이 배치사이즈 $B$, 채널 $D$, 길이 $L$을 가진다고 하면, SSM은 channel-wise하게 적용된다.
 - 이 경우 hidden state output은 $DN$개. 시간과 메모리는 $O(BLDN)$→여기서 보틀넥 발생
@@ -129,8 +128,8 @@ y_n=(\mathbf{C}\bar{\mathbf{B}}, \mathbf{C}\bar{\mathbf{A}}\bar{\mathbf{B}}, \do
 
 - 원래는 파란 선이 없었음. $B, C, \Delta$ 전부 시간이나 $x$에 의존하지도 않았음. 여기서 인풋의 채널수 $D=5$, latent vector $h_t$의 차원을 $N=4$라고 하자.
 - Selective SSM에선 $s_B(x), s_C(x), s_\Delta(x)$를 통해 파라미터 $\mathbf{B}, \mathbf{C}, \Delta$를 인풋에 의존하게 함
-- $s_B(x)=\text{Linear}_N(x), s_C(x)=\text{Linear}_N(x), s_\Delta(x)=\text{Broadcast}_D(\text{Linear}_1(x)), \tau_\Delta=\text{softplus}$
-    - softplus는 [부드러운 ReLU의 근사치](https://pytorch.org/docs/stable/generated/torch.nn.Softplus.html)
+- $s_B(x)=\text{Linear}\_N(x), s\_C(x)=\text{Linear}\_N(x), s\_\Delta(x)=\text{Broadcast}\_D(\text{Linear}\_1(x)), \tau_\Delta=\text{softplus}$
+    - softplus는 [ReLU의 부드러운 근사치](https://pytorch.org/docs/stable/generated/torch.nn.Softplus.html)
 - $\mathbf{B}=s_B(x), \mathbf{C}=s_C(x), \Delta=\tau_\Delta(\text{Parameter}+s_\Delta(x))$
 
 ### 3. 효율적으로 적용하려면?
@@ -172,7 +171,7 @@ y_n=(\mathbf{C}\bar{\mathbf{B}}, \mathbf{C}\bar{\mathbf{A}}\bar{\mathbf{B}}, \do
 - RNN의 게이팅 메커니즘: 다음과 같은 정리가 성립한다.
 
 >$N=1, A=-1, B=1, s_\Delta=\text{Linear}(x), \tau_\Delta=\text{softplus}$라고 가정하자. 그러면 셀렉티브 SSM은 다음 식이 된다. 
->\\(\begin{align}g_t=\sigma({\text{Linear}(x_t))\\\ h_t= (1-g_t)h_{t-1}+ g_t x_t\\)
+>\\(\begin{align*}g_t=\sigma({\text{Linear}(x_t))\\\ h_t= (1-g_t)h_{t-1}+ g_t x_t\end{algin*}\\)
 
 - 셀렉션 메커니즘은 다음과 같은 3가지 효과를 가진다:
     - 변수에 간격을 만들어줌: 셀렉션이 노이즈 토큰을 제거해주고 관심있는 데이터 인풋만 받게 해줌.
