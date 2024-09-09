@@ -4,6 +4,8 @@ layout: post
 use_math: true
 ---
 
+
+
 ## Introduction
 
 이 글에선 인트로 요약은 생략(본문이 어려워서 본문 적기도 바쁜지라..)
@@ -14,7 +16,7 @@ use_math: true
 - S4는 CNN, RNN, 클래식 상태 공간 모델과 연관있다.
 - S4는 4가지 파라미터 $(\Delta, \mathbf{A}, \mathbf{B}, \mathbf{C})$와 6가지 식으로 두 단계에 걸쳐 정의된다
     - Continuous version: $h’(t) = \mathbf{A}h(t) + \mathbf{B} x(t), y(t)=\mathbf{C}h(t)$
-        - Recurrence after discretization:  $h_t = \bar{\mathbf{A}}h_{t-1} + \bar{\mathbf{B} x_t, y_t=\mathbf{C}h_t$
+    - Recurrence after discretization:  $h_t = \bar{\mathbf{A}}h_{t-1} + \bar{\mathbf{B}} x_t, y_t=\mathbf{C}h_t$
     - Convolution after discretization: $\bar{\mathbf{K}} = (\mathbf{C}\bar{\mathbf{B}}, \mathbf{C}\overline{\mathbf{A}\mathbf{B}}, \dots, \mathbf{C}\bar{\mathbf{A}}^k\bar{\mathbf{B}}, \dots), y=x\ast\hat{\mathbf{K}}$
 
 ### 이산화
@@ -107,8 +109,7 @@ y\_n=(\mathbf{C}\bar{\mathbf{B}}, \mathbf{C}\bar{\mathbf{A}}\bar{\mathbf{B}}, \d
     - (KV cache=[추론속도를 향상시키기 위해 key-value 페어를 저장해두는 것](https://medium.com/@joaolages/kv-caching-explained-276520203249))
     - 물론 상태가 유한하니까 상수시간 인퍼런스, 선형시간 학습을 보장해줌. 근데 이 유한 상태에 효율성이 제약되버림.
 - 이 원리를 이해하기 위해서 2가지 인위적 태스크를 고려해보자
-
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/ac84168d-557f-4919-b37f-2632c6456077/066d1c33-e568-4654-b11f-49adae5e2b53/image.png)
+![mamba1](https://github.com/user-attachments/assets/cc83c505-a6cc-42f3-96ea-4e458ce16d33)
 
 1. 그냥 카피(인위적 ㄴㄴ): 이렇게 인풋 아웃풋이 필요하면 인풋 내용물을 알 필요가 없으며, 일반적인 재귀나 글로벌 컨볼루션으로 해결됨
 2. 선택 카피: 인풋이 선택적으로 랜덤갭을 두고 들어오는 경우. 이러면 모델은 선택적으로 인풋의 내용물을 기억해야한다.
@@ -123,8 +124,7 @@ y\_n=(\mathbf{C}\bar{\mathbf{B}}, \mathbf{C}\bar{\mathbf{A}}\bar{\mathbf{B}}, \d
 - 결국 이 수열 모델을 결정짓는 것은 **선택성**. 즉 내용물을 인지하는 능력으로 인풋을 집중하거나 거르는 것이 가능.
 
 ### 2. Selection SSM
-
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/ac84168d-557f-4919-b37f-2632c6456077/3e9c4d1c-4fcd-47db-9064-67facf30ef64/image.png)
+![mamba2](https://github.com/user-attachments/assets/5a9b4e18-b8bd-4967-93b7-c23edc7ae693)
 
 - 원래는 파란 선이 없었음. $B, C, \Delta$ 전부 시간이나 $x$에 의존하지도 않았음. 여기서 인풋의 채널수 $D=5$, latent vector $h_t$의 차원을 $N=4$라고 하자.
 - Selective SSM에선 $s_B(x), s_C(x), s_\Delta(x)$를 통해 파라미터 $\mathbf{B}, \mathbf{C}, \Delta$를 인풋에 의존하게 함
@@ -159,8 +159,7 @@ y\_n=(\mathbf{C}\bar{\mathbf{B}}, \mathbf{C}\bar{\mathbf{A}}\bar{\mathbf{B}}, \d
 
 - 이제 이렇게 만든 Selective SSM은 어느 뉴럴 네트워크든 넣을 수 있다.
 - 우린 H3와 gated-MLP를 참조해 다음과 같이 네트워크를 구성했다.
-
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/ac84168d-557f-4919-b37f-2632c6456077/7a24d042-2645-48fc-a893-e927cc8ec352/image.png)
+![mamba3](https://github.com/user-attachments/assets/278d055c-5d52-41f0-a76a-584c09178445)
 
 - 이 블록을 반복함
 - SiLU(Swish activation) 사용
