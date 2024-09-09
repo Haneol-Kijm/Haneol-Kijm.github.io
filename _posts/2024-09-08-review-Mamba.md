@@ -167,6 +167,7 @@ y\_n&=(\mathbf{C}\bar{\mathbf{B}}, \mathbf{C}\bar{\mathbf{A}}\bar{\mathbf{B}}, \
 - RNN의 게이팅 메커니즘: 다음과 같은 정리가 성립한다.
 
 >$N=1, A=-1, B=1, s_\Delta=\text{Linear}(x), \tau_\Delta=\text{softplus}$라고 가정하자. 그러면 셀렉티브 SSM은 다음 식이 된다.
+
 \\(
 \begin{align*} g\_t &=\sigma({\text{Linear}(x\_t))\\\ h\_t &= (1-g\_t)h\_{t-1}+ g\_t x\_t \end{align*}
 \\)
