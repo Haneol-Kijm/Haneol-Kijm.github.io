@@ -41,21 +41,21 @@ use_math: true
 
 $h_t$에 대해 풀어쓰면, 
 
-\\( \begin{align\*} h\_0=\bar{\mathbf{B}}x\_0\\\ 
-h\_1=\bar{\mathbf{A}}h\_0+\bar{\mathbf{B}}x\_1=\bar{\mathbf{A}}\bar{\mathbf{B}}x\_0+\bar{\mathbf{B}}x\_1\\\ 
-h\_2=\bar{\mathbf{A}}h\_1+\bar{\mathbf{B}}x\_2=\bar{\mathbf{A}}^2\bar{\mathbf{B}}x\_0 +\bar{\mathbf{A}}\bar{\mathbf{B}}x\_1+\bar{\mathbf{B}}x\_2\\\ 
-h\_3=\bar{\mathbf{A}}h\_2+\bar{\mathbf{B}}x\_3=\bar{\mathbf{A}}^3\bar{\mathbf{B}}x\_0 +\bar{\mathbf{A}}^2\bar{\mathbf{B}}x\_1+\bar{\mathbf{A}}\bar{\mathbf{B}}x\_2+\bar{\mathbf{B}}x\_3\\\
+\\( \begin{align\*} h\_0&=\bar{\mathbf{B}}x\_0\\\ 
+h\_1&=\bar{\mathbf{A}}h\_0+\bar{\mathbf{B}}x\_1=\bar{\mathbf{A}}\bar{\mathbf{B}}x\_0+\bar{\mathbf{B}}x\_1\\\ 
+h\_2&=\bar{\mathbf{A}}h\_1+\bar{\mathbf{B}}x\_2=\bar{\mathbf{A}}^2\bar{\mathbf{B}}x\_0 +\bar{\mathbf{A}}\bar{\mathbf{B}}x\_1+\bar{\mathbf{B}}x\_2\\\ 
+h\_3&=\bar{\mathbf{A}}h\_2+\bar{\mathbf{B}}x\_3=\bar{\mathbf{A}}^3\bar{\mathbf{B}}x\_0 +\bar{\mathbf{A}}^2\bar{\mathbf{B}}x\_1+\bar{\mathbf{A}}\bar{\mathbf{B}}x\_2+\bar{\mathbf{B}}x\_3\\\
 \vdots \end{align\*} \\)
 
 다시 $y_t$에 대해 풀어쓰면, 
 
 \\(
-\begin{align\*} y\_0=\mathbf{C}\bar{\mathbf{B}}x\_0\\\ 
-y\_1=\mathbf{C}\bar{\mathbf{A}}\bar{\mathbf{B}}x\_0+\mathbf{C}\bar{\mathbf{B}}x\_1\\\ 
-y\_2=\mathbf{C}\bar{\mathbf{A}}^2\bar{\mathbf{B}}x\_0 +\mathbf{C}\bar{\mathbf{A}}\bar{\mathbf{B}}x\_1+\mathbf{C}\bar{\mathbf{B}}x\_2\\\ 
-y\_3=\mathbf{C}\bar{\mathbf{A}}^3\bar{\mathbf{B}}x\_0 +\mathbf{C}\bar{\mathbf{A}}^2\bar{\mathbf{B}}x\_1+\mathbf{C}\bar{\mathbf{A}}\bar{\mathbf{B}}x\_2+\mathbf{C}\bar{\mathbf{B}}x\_3\\\ 
+\begin{align\*} y\_0&=\mathbf{C}\bar{\mathbf{B}}x\_0\\\ 
+y\_1&=\mathbf{C}\bar{\mathbf{A}}\bar{\mathbf{B}}x\_0+\mathbf{C}\bar{\mathbf{B}}x\_1\\\ 
+y\_2&=\mathbf{C}\bar{\mathbf{A}}^2\bar{\mathbf{B}}x\_0 +\mathbf{C}\bar{\mathbf{A}}\bar{\mathbf{B}}x\_1+\mathbf{C}\bar{\mathbf{B}}x\_2\\\ 
+y\_3&=\mathbf{C}\bar{\mathbf{A}}^3\bar{\mathbf{B}}x\_0 +\mathbf{C}\bar{\mathbf{A}}^2\bar{\mathbf{B}}x\_1+\mathbf{C}\bar{\mathbf{A}}\bar{\mathbf{B}}x\_2+\mathbf{C}\bar{\mathbf{B}}x\_3\\\ 
 \vdots\\\ 
-y\_n=(\mathbf{C}\bar{\mathbf{B}}, \mathbf{C}\bar{\mathbf{A}}\bar{\mathbf{B}}, \dots, \mathbf{C}\bar{\mathbf{A}}^n\bar{\mathbf{B}})\ast(x\_0, x\_1, \dots, x\_n) \end{align\*}
+y\_n&=(\mathbf{C}\bar{\mathbf{B}}, \mathbf{C}\bar{\mathbf{A}}\bar{\mathbf{B}}, \dots, \mathbf{C}\bar{\mathbf{A}}^n\bar{\mathbf{B}})\ast(x\_0, x\_1, \dots, x\_n) \end{align\*}
 \\)
 
 (여기서 convolution은 역순의 내적)
@@ -167,7 +167,7 @@ y\_n=(\mathbf{C}\bar{\mathbf{B}}, \mathbf{C}\bar{\mathbf{A}}\bar{\mathbf{B}}, \d
 - RNN의 게이팅 메커니즘: 다음과 같은 정리가 성립한다.
 
 >$N=1, A=-1, B=1, s_\Delta=\text{Linear}(x), \tau_\Delta=\text{softplus}$라고 가정하자. 그러면 셀렉티브 SSM은 다음 식이 된다. 
->\\(\begin{align*}g_t=\sigma({\text{Linear}(x_t))\\\ h_t= (1-g_t)h_{t-1}+ g_t x_t\end{algin*}\\)
+\\(\begin{align*}g\_t&=\sigma({\text{Linear}(x\_t))\\\ h\_t&= (1-g\_t)h\_{t-1}+ g\_t x\_t\end{algin*}\\)
 
 - 셀렉션 메커니즘은 다음과 같은 3가지 효과를 가진다:
     - 변수에 간격을 만들어줌: 셀렉션이 노이즈 토큰을 제거해주고 관심있는 데이터 인풋만 받게 해줌.
