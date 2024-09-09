@@ -168,11 +168,7 @@ y\_n&=(\mathbf{C}\bar{\mathbf{B}}, \mathbf{C}\bar{\mathbf{A}}\bar{\mathbf{B}}, \
 
 >$N=1, A=-1, B=1, s_\Delta=\text{Linear}(x), \tau_\Delta=\text{softplus}$라고 가정하자. 그러면 셀렉티브 SSM은 다음 식이 된다.
 
-\\(
-\begin{align*} 
-g\_t &=\sigma({\text{Linear}(x\_t))\\\ 
-h\_t &= (1-g\_t)h\_{t-1}+ g\_t x\_t \end{algin*} 
-\\)
+$\begin{align*} g\_t &=\sigma({\text{Linear}(x\_t))\\\ h\_t &= (1-g\_t)h\_{t-1}+ g\_t x\_t \end{algin*}$
 
 - 셀렉션 메커니즘은 다음과 같은 3가지 효과를 가진다:
     - 변수에 간격을 만들어줌: 셀렉션이 노이즈 토큰을 제거해주고 관심있는 데이터 인풋만 받게 해줌.
