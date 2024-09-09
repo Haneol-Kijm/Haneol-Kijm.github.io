@@ -41,23 +41,21 @@ use_math: true
 
 $h_t$에 대해 풀어쓰면, 
 
-\\(
-\begin{align*} h\_0=\bar{\mathbf{B}}x\_0\\\ 
+\\( \begin{align\*} h\_0=\bar{\mathbf{B}}x\_0\\\ 
 h\_1=\bar{\mathbf{A}}h\_0+\bar{\mathbf{B}}x\_1=\bar{\mathbf{A}}\bar{\mathbf{B}}x\_0+\bar{\mathbf{B}}x\_1\\\ 
 h\_2=\bar{\mathbf{A}}h\_1+\bar{\mathbf{B}}x\_2=\bar{\mathbf{A}}^2\bar{\mathbf{B}}x\_0 +\bar{\mathbf{A}}\bar{\mathbf{B}}x\_1+\bar{\mathbf{B}}x\_2\\\ 
 h\_3=\bar{\mathbf{A}}h\_2+\bar{\mathbf{B}}x\_3=\bar{\mathbf{A}}^3\bar{\mathbf{B}}x\_0 +\bar{\mathbf{A}}^2\bar{\mathbf{B}}x\_1+\bar{\mathbf{A}}\bar{\mathbf{B}}x\_2+\bar{\mathbf{B}}x\_3\\\
-\vdots \end{align*}
-\\)
+\vdots \end{align\*} \\)
 
 다시 $y_t$에 대해 풀어쓰면, 
 
 \\(
-\begin{align*} y\_0=\mathbf{C}\bar{\mathbf{B}}x\_0\\\ 
+\begin{align\*} y\_0=\mathbf{C}\bar{\mathbf{B}}x\_0\\\ 
 y\_1=\mathbf{C}\bar{\mathbf{A}}\bar{\mathbf{B}}x\_0+\mathbf{C}\bar{\mathbf{B}}x\_1\\\ 
 y\_2=\mathbf{C}\bar{\mathbf{A}}^2\bar{\mathbf{B}}x\_0 +\mathbf{C}\bar{\mathbf{A}}\bar{\mathbf{B}}x\_1+\mathbf{C}\bar{\mathbf{B}}x\_2\\\ 
 y\_3=\mathbf{C}\bar{\mathbf{A}}^3\bar{\mathbf{B}}x\_0 +\mathbf{C}\bar{\mathbf{A}}^2\bar{\mathbf{B}}x\_1+\mathbf{C}\bar{\mathbf{A}}\bar{\mathbf{B}}x\_2+\mathbf{C}\bar{\mathbf{B}}x\_3\\\ 
 \vdots\\\ 
-y\_n=(\mathbf{C}\bar{\mathbf{B}}, \mathbf{C}\bar{\mathbf{A}}\bar{\mathbf{B}}, \dots, \mathbf{C}\bar{\mathbf{A}}^n\bar{\mathbf{B}})\ast(x\_0, x\_1, \dots, x\_n) \end{align*}
+y\_n=(\mathbf{C}\bar{\mathbf{B}}, \mathbf{C}\bar{\mathbf{A}}\bar{\mathbf{B}}, \dots, \mathbf{C}\bar{\mathbf{A}}^n\bar{\mathbf{B}})\ast(x\_0, x\_1, \dots, x\_n) \end{align\*}
 \\)
 
 (여기서 convolution은 역순의 내적)
